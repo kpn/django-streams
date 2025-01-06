@@ -1,0 +1,8 @@
+{
+    "type": "record",
+    "name": "HelloKPN",
+    "namespace": "com.kpn.datalab.schemas.example.hello_kpn",
+    "fields": [
+        {"name": "message", "type": "string", "default": ""}
+    ]
+}

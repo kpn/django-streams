@@ -1,0 +1,78 @@
+{
+    "machine_info": {
+        "node": "Marcoss-MacBook-Pro.local",
+        "processor": "arm",
+        "machine": "arm64",
+        "python_compiler": "Clang 16.0.6 ",
+        "python_implementation": "CPython",
+        "python_implementation_version": "3.11.9",
+        "python_version": "3.11.9",
+        "python_build": [
+            "main",
+            "Apr  2 2024 08:25:04"
+        ],
+        "release": "24.1.0",
+        "system": "Darwin",
+        "cpu": {
+            "python_version": "3.11.9.final.0 (64 bit)",
+            "cpuinfo_version": [
+                9,
+                0,
+                0
+            ],
+            "cpuinfo_version_string": "9.0.0",
+            "arch": "ARM_8",
+            "bits": 64,
+            "count": 12,
+            "arch_string_raw": "arm64",
+            "brand_raw": "Apple M3 Pro"
+        }
+    },
+    "commit_info": {
+        "id": "7a4fc3552257174d5bd74734285c415ac5b8027e",
+        "time": "2024-12-09T11:20:16+01:00",
+        "author_time": "2024-12-05T16:40:00+01:00",
+        "dirty": true,
+        "project": "django-streams",
+        "branch": "opt/add-benchmark"
+    },
+    "benchmarks": [
+        {
+            "group": null,
+            "name": "test_sync_send",
+            "fullname": "tests/test_benchmarks.py::test_sync_send",
+            "params": null,
+            "param": null,
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.0004697499998655985,
+                "max": 0.010431249999783176,
+                "mean": 0.0005585528689099352,
+                "stddev": 0.00041307693822378714,
+                "rounds": 595,
+                "median": 0.0005227920000834274,
+                "iqr": 8.492725010000868e-05,
+                "q1": 0.00048358275000737194,
+                "q3": 0.0005685100001073806,
+                "iqr_outliers": 24,
+                "stddev_outliers": 1,
+                "outliers": "1;24",
+                "ld15iqr": 0.0004697499998655985,
+                "hd15iqr": 0.0008322499998030253,
+                "ops": 1790.340817605301,
+                "total": 0.3323389570014115,
+                "iterations": 1
+            }
+        }
+    ],
+    "datetime": "2024-12-09T10:23:15.688049+00:00",
+    "version": "5.1.0"
+}

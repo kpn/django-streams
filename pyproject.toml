@@ -1,0 +1,95 @@
+[tool.poetry]
+name = "django-streams"
+version = "3.0.0"
+description = "Django application to produce/consume events from Kafka"
+authors = ["Marcos Schroh <marcos.schroh@kpn.com>"]
+readme = "README.md"
+packages = [{include = "django_streams"}]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: System :: Networking",
+    "Topic :: System :: Distributed Computing",
+    "Framework :: AsyncIO",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+kstreams = ">=0.23.0,<0.27.0"
+django = ">=2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.25.0"
+mkdocs = "^1.5.3"
+mypy = "^1.6.0"
+ruff = "^0.8.0"
+pytest-cov = "^6.0.0"
+pytest-django = "^4.5.2"
+pytest-benchmark = "^5.1.0"
+mkdocstrings = {version = "^0.27.0", extras = ["python"]}
+mkdocs-material = "^9.5.49"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    # Pyflakes
+    "F",
+    # isort
+    "I001"
+]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    ".venv",
+]
+
+[[tool.mypy.overrides]]
+module = "django.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "aiokafka.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "kafka.*"
+ignore_missing_imports = true
+
+[tool.commitizen]
+version_provider = "poetry"
+tag_format = "$version"
+version_files = [
+    "mkdocs.yml:version",
+]
+update_changelog_on_bump = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.testing_app.settings"
