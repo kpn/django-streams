@@ -1,0 +1,42 @@
+name: Publish documentation
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: latest
+        virtualenvs-in-project: true
+        virtualenvs-create: true
+
+    - name: Install Dependencies
+      run: |
+        poetry install --only dev
+
+    - name: Build docs
+      run: |
+        poetry run mkdocs build
+
+    - name: Push doc to Github Page
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: ./site
+        tag_message: 'Deployment ${{ github.ref_name }}'

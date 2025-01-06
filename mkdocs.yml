@@ -1,0 +1,61 @@
+site_name: django-streams
+repo_url: https://github.com/kpn/django-streams
+site_description: REST service to ingest events into kafka topics
+theme:
+  name: 'material'
+  palette:
+  - scheme: kpn
+    toggle:
+      icon: material/lightbulb
+      name: Switch to dark mode
+  - scheme: kpn-dark
+    toggle:
+      icon: material/lightbulb-outline
+      name: Switch to light mode
+  features:
+  - search.suggest
+  - search.highlight
+  - content.tabs.link
+  - content.code.annotate
+
+extra_css:
+  - stylesheets/brand.css
+
+extra:
+  version:
+    provider: 'manual'
+    version: 3.0.0
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.snippets
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.details
+  - tables
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.tabbed:
+      alternate_style: true 
+
+plugins:
+  - autorefs
+  - mkdocstrings
+  - search
+nav:
+  - Introduction: 'index.md'
+  - Worker: 'worker.md'
+  - Producer: 'producer.md'
+  - Using django orm: 'using_orm.md'
+  - Kubernetes deployment: 'kubernetes_deployment.md'
+  - Testing: 'test_client.md'
