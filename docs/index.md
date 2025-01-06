@@ -2,6 +2,10 @@
 
 ![django streaming](docs/img/django_worker.png)
 
+![Build status](https://github.com/kpn/django-streams/actions/workflows/pr-tests.yaml/badge.svg?branch=main)
+[![codecov](https://codecov.io/gh/kpn/django-streams/branch/main/graph/badge.svg?token=t7pxIPtphF)](https://codecov.io/gh/kpn/django-streams)
+![python version](https://img.shields.io/badge/python-3.9%2B-yellowgreen)
+
 ## Installation
 
 ```bash
