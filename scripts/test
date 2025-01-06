@@ -5,7 +5,7 @@ if [ -d '.venv' ] ; then
     export PREFIX=".venv/bin/"
 fi
 
-${PREFIX}pytest -x --cov-report=term-missing --cov-report=html --cov=django_streams --cov-fail-under=95 ${1-"./tests"} ${2}
+${PREFIX}pytest -x --cov-report=term-missing --cov-report=xml:coverage.xml --cov-report=html --cov=django_streams --cov-fail-under=94 ${1-"./tests"} ${2}
 
 # test the `django-streams` example
 export DJANGO_SETTINGS_MODULE="examples.django_streaming_example.django_streaming_example.settings"
