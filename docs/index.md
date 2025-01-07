@@ -1,10 +1,12 @@
-# Django application to produce/consume events from Kafka
+# Django-streams
 
-![django streaming](docs/img/django_worker.png)
+Django application to produce/consume events from Kafka supported by [kstreams](https://github.com/kpn/kstreams)
 
 ![Build status](https://github.com/kpn/django-streams/actions/workflows/pr-tests.yaml/badge.svg?branch=main)
 [![codecov](https://codecov.io/gh/kpn/django-streams/branch/main/graph/badge.svg?token=t7pxIPtphF)](https://codecov.io/gh/kpn/django-streams)
 ![python version](https://img.shields.io/badge/python-3.9%2B-yellowgreen)
+
+![django streaming](img/django_worker.png)
 
 ## Installation
 
@@ -99,17 +101,14 @@ Producing events can be `sync` or `async`. If you are in a `sync` context you mu
 from django.http import HttpResponse
 from django.views.generic import View
 
-from de.core.conf import settings
 from .engine import stream_engine
 
 
 class HelloWorldView(View):
 
     def get(self, request, *args, **kwargs):
-        topic = f"{settings.KAFKA_TOPIC_PREFIX}hello-kpn"
-
         record_metadata = stream_engine.sync_send(
-            topic,
+            "hello-kpn",
             value=b"hello world",
             key="hello",
             partition=None,

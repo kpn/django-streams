@@ -14,16 +14,14 @@ The following example shows the simplest and probably common use case: producing
 from django.http import HttpResponse
 from django.views.generic import View
 
-from de.core.conf import settings
 from .engine import stream_engine
 
 
 class HelloWorldView(View):
     def get(self, request, *args, **kwargs):
-        topic = f"{settings.KAFKA_TOPIC_PREFIX}hello-kpn"
 
         record_metadata = stream_engine.sync_send(
-            topic,
+            "hello-kpn",
             value=b"hello world!!!",
             key="hello",
             partition=None,
