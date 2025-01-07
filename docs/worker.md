@@ -30,7 +30,7 @@ class Command(BaseCommand):
         # StreamEngine is a Singlenton, so it will return the same instance
         # as the user has defined in the custom django app.
         engine = create_engine()
-        logger.info(f"Starting Engine with streams {engine._streams}")
+        logger.info(f"Starting Engine with streams {engine}")
 
         # Listening signals from main Thread
         signal.signal(signal.SIGINT, engine.sync_stop)  # IMPORTANT

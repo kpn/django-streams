@@ -54,8 +54,8 @@ plugins:
   - search
 nav:
   - Introduction: 'index.md'
-  - Worker: 'worker.md'
   - Producer: 'producer.md'
+  - Worker: 'worker.md'
   - Using django orm: 'using_orm.md'
-  - Kubernetes deployment: 'kubernetes_deployment.md'
   - Testing: 'test_client.md'
+  - Kubernetes deployment: 'kubernetes_deployment.md'
