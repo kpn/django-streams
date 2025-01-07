@@ -7,7 +7,7 @@ on:
 
 jobs:
   bench_release:
-    # if: ${{ startsWith(github.event.head_commit.message, 'bump:') }}
+    if: ${{ startsWith(github.event.head_commit.message, 'bump:') }}
     runs-on: ubuntu-latest
     steps:
     - name: Check out
