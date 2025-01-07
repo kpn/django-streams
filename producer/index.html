@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../worker/">
+        <link rel="prev" href="..">
       
       
-        <link rel="next" href="../using_orm/">
+        <link rel="next" href="../worker/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -280,26 +280,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../worker/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Worker
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -381,6 +361,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../using_orm/" class="md-nav__link">
         
   
@@ -401,11 +401,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../kubernetes_deployment/" class="md-nav__link">
+      <a href="../test_client/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Kubernetes deployment
+    Testing
   </span>
   
 
@@ -421,11 +421,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../test_client/" class="md-nav__link">
+      <a href="../kubernetes_deployment/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Testing
+    Kubernetes deployment
   </span>
   
 
@@ -508,16 +508,14 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HttpResponse</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.views.generic</span><span class="w"> </span><span class="kn">import</span> <span class="n">View</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">de.core.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">settings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.engine</span><span class="w"> </span><span class="kn">import</span> <span class="n">stream_engine</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">topic</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">KAFKA_TOPIC_PREFIX</span><span class="si">}</span><span class="s2">hello-kpn&quot;</span>
 
         <span class="n">record_metadata</span> <span class="o">=</span> <span class="n">stream_engine</span><span class="o">.</span><span class="n">sync_send</span><span class="p">(</span>
-            <span class="n">topic</span><span class="p">,</span>
+            <span class="s2">&quot;hello-kpn&quot;</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;hello world!!!&quot;</span><span class="p">,</span>
             <span class="n">key</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span>
             <span class="n">partition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
