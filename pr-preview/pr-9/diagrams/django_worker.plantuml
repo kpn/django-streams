@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+!include DEVICONS/python.puml
+!include DEVICONS/postgresql.puml
+!include <logos/kafka>
+
+AddElementTag("bus", $shape=EightSidedShape(), $bgColor="CornflowerBlue", $fontColor="white")
+
+SystemQueue(bus, "Kafka", "Message bus", $tags = "bus")
+Container(api, "API", "django web server", "django application", $sprite="python")
+Container(worker, "Worker", "django-streams", "asgi support from django", $sprite="python")
+ContainerDb(db, "Database", postgres, $sprite="postgresql")
+
+
+Rel_U(api, bus, "Publish")
+Rel_U(worker, bus, "Publish/Subscribe")
+Rel_D(api, db, "r/w")
+Rel_D(worker, db, "r/w")
+@enduml
