@@ -462,13 +462,13 @@ i18n = ["Babel (>=2.7)"]
 
 [[package]]
 name = "kstreams"
-version = "0.26.3"
+version = "0.26.5"
 description = "Build simple kafka streams applications"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "kstreams-0.26.3-py3-none-any.whl", hash = "sha256:b655676288700b511744b9c2249039a4176685e1a43021614eea865d300191c3"},
-    {file = "kstreams-0.26.3.tar.gz", hash = "sha256:54c7d80fc0f55d98d6cd4a5da3664a649c12eadf5612dcc8ba0c2b29b83ff906"},
+    {file = "kstreams-0.26.5-py3-none-any.whl", hash = "sha256:eae238b2d11095edc19c8464edadc42088defaac80a360a6c4951d78e2004bf5"},
+    {file = "kstreams-0.26.5.tar.gz", hash = "sha256:ac40d64e1b00719156a9b42cda1c061e670a075658ecdedc926392c7a426868f"},
 ]
 
 [package.dependencies]
