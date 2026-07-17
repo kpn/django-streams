@@ -19,8 +19,8 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-kstreams = ">=0.23.0,<0.27.0"
+python = "^3.10"
+kstreams = ">=0.27.0"
 django = ">=2"
 
 [tool.poetry.group.dev.dependencies]
@@ -34,6 +34,7 @@ pytest-django = "^4.5.2"
 pytest-benchmark = "^5.1.0"
 mkdocstrings = {version = "^0.27.0", extras = ["python"]}
 mkdocs-material = "^9.5.49"
+pytest-order = "^1.5.0"
 
 [build-system]
 requires = ["poetry-core"]

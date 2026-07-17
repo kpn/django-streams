@@ -5,5 +5,7 @@ if [ -d '.venv' ] ; then
     export PREFIX=".venv/bin/"
 fi
 
-${PREFIX}black django_streams tests examples
+${PREFIX}ruff format django_streams tests examples
 ${PREFIX}ruff check django_streams tests examples --fix
+
+set -x

@@ -94,7 +94,8 @@ python manage.py worker
 
 ### Producing events
 
-Producing events can be `sync` or `async`. If you are in a `sync` context you must use `stream_engine.sync_send`, otherwise [stream_engine.send](https://pages.kpn.org/repos-docs/dsl/django-streams/producer/#producing-in-an-async-context). For both cases a `RecordMetadata` is returned.
+Producing events can be `sync` or `async`. If you are in a `sync` context you must use `stream_engine.sync_send`, otherwise [stream_engine.send](https://kpn.github.io/django-streams/producer/#producing-in-an-async-context). For both cases a `RecordMetadata` is returned.
+
 
 ```python
 # streaming_app/views.py
