@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-streams"
-version = "3.0.0"
+version = "3.1.0"
 description = "Django application to produce/consume events from Kafka"
 authors = ["Marcos Schroh <marcos.schroh@kpn.com>"]
 readme = "README.md"
