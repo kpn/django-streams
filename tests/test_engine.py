@@ -5,7 +5,8 @@ from unittest import mock
 import aiokafka
 import pytest
 from kstreams import ConsumerRecord, Stream, clients, consts, types
-from kstreams.streams_utils import UDFType
+from kstreams.clients import Producer, ProducerSettings
+from kstreams.consts import UDFType
 from kstreams.test_utils.structs import RecordMetadata
 
 from django_streams.engine import StreamEngine
@@ -38,6 +39,28 @@ def test_singlenton():
 
 
 @pytest.mark.asyncio
+@pytest.mark.order(1)
+async def test_stream_engine_custom_producer_settings():
+    producer_settings = ProducerSettings(
+        client_id="custom-producer-client",
+        linger_ms=10,
+        request_timeout_ms=80000,
+    )
+    stream_engine = create_engine(producer_settings=producer_settings)
+
+    with mock.patch.multiple(Producer, start=mock.DEFAULT, stop=mock.DEFAULT):
+        await stream_engine.start()
+
+        assert stream_engine._producer is not None
+        assert stream_engine._producer.config["client_id"] == "custom-producer-client"
+        assert stream_engine._producer.config["linger_ms"] == 10
+        assert stream_engine._producer.config["request_timeout_ms"] == 80000
+        assert stream_engine._producer._request_timeout_ms == 80000
+
+        await stream_engine.stop()
+
+
+@pytest.mark.asyncio
 async def test_add_streams_no_typing(stream_engine: StreamEngine):
     """
     Test add `stream` in the old fashion
@@ -63,12 +86,10 @@ async def test_add_streams_with_typing(stream_engine: StreamEngine):
     topic = "dev-kpn-des--hello-kpn"
 
     @stream_engine.stream(topic)
-    async def stream_one(cr: ConsumerRecord):
-        ...
+    async def stream_one(cr: ConsumerRecord): ...
 
     @stream_engine.stream(topic)
-    async def stream_two(cr: ConsumerRecord, stream: Stream):
-        ...
+    async def stream_two(cr: ConsumerRecord, stream: Stream): ...
 
     with (
         mock.patch("aiokafka.AIOKafkaConsumer.start") as mock_consumer_start,
@@ -101,9 +122,12 @@ def test_add_stream_custom_conf(stream_engine: StreamEngine):
     async def stream(_):
         pass
 
-    with mock.patch.multiple(
-        "kstreams.clients.Consumer", start=mock.DEFAULT, unsubscribe=mock.DEFAULT
-    ), mock.patch("kstreams.clients.Producer.start") as mock_producer_start:
+    with (
+        mock.patch.multiple(
+            "kstreams.clients.Consumer", start=mock.DEFAULT, unsubscribe=mock.DEFAULT
+        ),
+        mock.patch("kstreams.clients.Producer.start") as mock_producer_start,
+    ):
         stream_engine.sync_start()
 
         stream.consumer.start.assert_called()
@@ -119,11 +143,10 @@ def test_start_and_stop_engine(stream_engine: StreamEngine):
     async def stream(_):
         pass
 
-    with mock.patch(
-        "kstreams.clients.Consumer.start"
-    ) as mock_consumer_start, mock.patch(
-        "kstreams.clients.Producer.start"
-    ) as mock_producer_start:
+    with (
+        mock.patch("kstreams.clients.Consumer.start") as mock_consumer_start,
+        mock.patch("kstreams.clients.Producer.start") as mock_producer_start,
+    ):
         stream_engine.sync_start()
         stream_engine.sync_stop()
 
@@ -134,8 +157,7 @@ def test_start_and_stop_engine(stream_engine: StreamEngine):
 @pytest.mark.asyncio
 async def test_start_and_stop_streams(stream_engine: StreamEngine):
     @stream_engine.stream("dev-kpn-des--hello-kpn")
-    async def stream(_):
-        ...
+    async def stream(_): ...
 
     with mock.patch.multiple(
         "aiokafka.AIOKafkaConsumer", start=mock.DEFAULT, unsubscribe=mock.DEFAULT

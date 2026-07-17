@@ -150,8 +150,8 @@ class HelloWorldView(View):
 
 ## Application example
 
-- Go to `/streaming/produce/hello-world/` to produce an event to `hello-kpn` topic.
+- Go to `http://localhost:8000/streaming/produce/hello-world/` to produce an event to `hello-kpn` topic.
 - Another `container` is running which consumes events from the topic `hello-kpn`. The container `command` is `make worker` which is doing `python manage.py worker`. The worker will
-  run all the streams of you application. You can find the `streams` [here](https://git.kpn.org/projects/DE/repos/django-streaming-example/browse/src/django_streaming_example/streaming/streams.py?at=refs%2Fheads%2Ffix%2Fupdate-project-with-latest-template-changes)
-- The worker runs in a different [k8s deployment](https://git.kpn.org/projects/DE/repos/django-streaming-example/browse/k8s/templates/worker.yaml) than the application (django), so kafka consumers can be scaled in/out independently.
-- If you want to produce a `tombstone` then hit the endpoint `/streaming/produce/tombstone/`
+  run all the streams of you application. You can find the `streams` [here](https://github.com/kpn-tech/django-streaming-example/blob/master/src/django_streaming_example/streaming/streams.py)
+- The worker runs in a different [k8s deployment](https://github.com/kpn-tech/django-streaming-example/blob/master/k8s/templates/worker.yaml) than the application (django), so kafka consumers can be scaled in/out independently.
+- If you want to produce a `tombstone` then hit the endpoint `http://localhost:8000/streaming/produce/tombstone/`

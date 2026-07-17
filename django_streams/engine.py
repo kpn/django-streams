@@ -103,6 +103,11 @@ class StreamEngine(Base, metaclass=Singleton):
             await self.stop()
             logger.info("Gracefully Shutdown. Doei")
 
+    async def stop_streams(self) -> None:
+        for stream in self._streams:
+            await stream.stop()
+        logger.info("Streams have STOPPED....")
+
     def sync_start(self):
         """
         This method only used by the worker in order to start in a synchronous way,
