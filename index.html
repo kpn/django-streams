@@ -689,7 +689,7 @@
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>manage.py<span class="w"> </span>worker
 </code></pre></div>
 <h3 id="producing-events">Producing events</h3>
-<p>Producing events can be <code>sync</code> or <code>async</code>. If you are in a <code>sync</code> context you must use <code>stream_engine.sync_send</code>, otherwise <a href="https://pages.kpn.org/repos-docs/dsl/django-streams/producer/#producing-in-an-async-context">stream_engine.send</a>. For both cases a <code>RecordMetadata</code> is returned.</p>
+<p>Producing events can be <code>sync</code> or <code>async</code>. If you are in a <code>sync</code> context you must use <code>stream_engine.sync_send</code>, otherwise <a href="https://kpn.github.io/django-streams/producer/#producing-in-an-async-context">stream_engine.send</a>. For both cases a <code>RecordMetadata</code> is returned.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># streaming_app/views.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HttpResponse</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.views.generic</span><span class="w"> </span><span class="kn">import</span> <span class="n">View</span>
