@@ -27,7 +27,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Setup python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python-version }}
         architecture: x64
@@ -74,7 +74,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Setup python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.13'
         architecture: x64
