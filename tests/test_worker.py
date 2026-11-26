@@ -19,8 +19,8 @@ def test_worker(stream_engine: StreamEngine):
     assert not stream_instance.running
 
     with (
-        mock.patch("kstreams.clients.Consumer.start"),
-        mock.patch("kstreams.clients.Producer.start"),
+        mock.patch("kstreams.Consumer.start"),
+        mock.patch("kstreams.Producer.start"),
     ):
         call_command("worker")
         assert stream_engine.loop

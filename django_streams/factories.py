@@ -1,7 +1,7 @@
 from typing import Optional, Type
 
+from kstreams import Consumer, Producer, ProducerSettings
 from kstreams.backends.kafka import Kafka
-from kstreams.clients import Consumer, Producer, ProducerSettings
 from kstreams.prometheus.monitor import PrometheusMonitor
 from kstreams.serializers import Deserializer, Serializer
 from kstreams.types import EngineHooks

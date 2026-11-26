@@ -1,13 +1,12 @@
 import json
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, cast
 from unittest import mock
 
 import aiokafka
 import pytest
-from kstreams import ConsumerRecord, Stream, clients, consts, types
-from kstreams.clients import Producer, ProducerSettings
+from kstreams import ConsumerRecord, Producer, ProducerSettings, Stream, consts, types
 from kstreams.consts import UDFType
-from kstreams.test_utils.structs import RecordMetadata
+from kstreams.structs import RecordMetadata
 
 from django_streams.engine import StreamEngine
 from django_streams.factories import create_engine
@@ -71,14 +70,17 @@ async def test_add_streams_no_typing(stream_engine: StreamEngine):
     async def stream(stream):
         assert isinstance(stream, Stream)
 
-    with mock.patch("kstreams.clients.Consumer.start") as mock_consumer_start:
+    with mock.patch("kstreams.Consumer.start") as mock_consumer_start:
         await stream_engine.start_streams()
         mock_consumer_start.assert_called()
         stream_instance = stream_engine._streams[0]
 
         assert stream_instance == stream
         assert stream_instance.topics == [topic]
-        assert stream_instance.udf_handler.type == UDFType.NO_TYPING
+        assert (
+            stream_instance.udf_handler is not None
+            and stream_instance.udf_handler.get_type() == UDFType.NO_TYPING
+        )
 
 
 @pytest.mark.asyncio
@@ -107,8 +109,10 @@ async def test_add_streams_with_typing(stream_engine: StreamEngine):
         assert stream_all_typing == stream_two
         assert stream_cr_typing.topics == [topic]
 
-        assert stream_cr_typing.udf_handler.type == UDFType.WITH_TYPING
-        assert stream_all_typing.udf_handler.type == UDFType.WITH_TYPING
+        assert stream_cr_typing.udf_handler is not None
+        assert stream_cr_typing.udf_handler.get_type() == UDFType.WITH_TYPING
+        assert stream_all_typing.udf_handler is not None
+        assert stream_all_typing.udf_handler.get_type() == UDFType.WITH_TYPING
 
 
 def test_add_stream_custom_conf(stream_engine: StreamEngine):
@@ -124,13 +128,15 @@ def test_add_stream_custom_conf(stream_engine: StreamEngine):
 
     with (
         mock.patch.multiple(
-            "kstreams.clients.Consumer", start=mock.DEFAULT, unsubscribe=mock.DEFAULT
+            "kstreams.Consumer", start=mock.DEFAULT, unsubscribe=mock.DEFAULT
         ),
-        mock.patch("kstreams.clients.Producer.start") as mock_producer_start,
+        mock.patch("kstreams.Producer.start") as mock_producer_start,
     ):
         stream_engine.sync_start()
 
-        stream.consumer.start.assert_called()
+        assert stream.consumer is not None
+        start_mock = cast(mock.MagicMock, stream.consumer.start)
+        start_mock.assert_called()
         mock_producer_start.assert_called()
 
         assert stream.consumer._auto_offset_reset == "earliest"
@@ -144,8 +150,8 @@ def test_start_and_stop_engine(stream_engine: StreamEngine):
         pass
 
     with (
-        mock.patch("kstreams.clients.Consumer.start") as mock_consumer_start,
-        mock.patch("kstreams.clients.Producer.start") as mock_producer_start,
+        mock.patch("kstreams.Consumer.start") as mock_consumer_start,
+        mock.patch("kstreams.Producer.start") as mock_producer_start,
     ):
         stream_engine.sync_start()
         stream_engine.sync_stop()
@@ -166,6 +172,7 @@ async def test_start_and_stop_streams(stream_engine: StreamEngine):
 
         assert stream.running
         consumer = stream.consumer
+        assert consumer is not None
         assert not consumer._closed
 
         await stream_engine.stop_streams()
@@ -319,7 +326,7 @@ async def test_async_send_custom_serializer(
     send = mock.AsyncMock(return_value=async_func())
 
     with mock.patch.multiple(
-        clients.Producer,
+        Producer,
         start=mock.DEFAULT,
         stop=mock.DEFAULT,
         send=send,
