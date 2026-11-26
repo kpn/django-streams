@@ -3,8 +3,8 @@ from typing import Any, Dict, Optional
 
 from aiokafka.structs import RecordMetadata, TopicPartition
 from kstreams import ConsumerRecord, types
+from kstreams.backends.memory import TopicManager
 from kstreams.test_utils import TestStreamClient as Base
-from kstreams.test_utils import TopicManager
 
 from django_streams.engine import Base as BaseEngine
 from django_streams.engine import StreamEngine

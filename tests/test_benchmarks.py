@@ -48,7 +48,7 @@ sudo py-spy record -o profile.svg -- python tests/test_benchmarks.py
 from unittest import mock
 
 import aiokafka
-from kstreams.test_utils.structs import RecordMetadata
+from kstreams.structs import RecordMetadata
 
 from django_streams.engine import StreamEngine
 
