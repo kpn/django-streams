@@ -3,6 +3,12 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and should contain all notable changes to the project made for humans.
 
+## 4.0.0 (2026-11-26)
+
+### Fix
+
+- Bump to latest and drop py310
+
 ## 3.1.0 (2026-07-17)
 
 ### Feat
